@@ -31,6 +31,7 @@ azure:
 storage:
   sizeLimit: "20Gi"
   pvcSizeLimit: "20Gi"
+  storageClassName: "csi-disk-topology"
   # NOTE: when you set this to Retain, the volume WILL persist after the chart is delete and you need to manually delete it
   reclaimPolicy: "Delete" # choose from: Delete | Retain 
   aws:
@@ -49,7 +50,7 @@ node:
     envBesuOpts: ""
     resources:
       cpuLimit: 0.7
-      cpuRequest: 0.5
+      cpuRequest: 0.1
       memLimit: "2G"
       memRequest: "1G"
     # privKey:
@@ -91,8 +92,7 @@ node:
       port: 8547
       corsOrigins: '["all"]'
     txPool:
-      retentionHours: 999
-      maxSize: 1024
+      type: "sequenced"
     http:
       allowlist: '["*"]'
     metrics:
@@ -111,7 +111,7 @@ node:
       url: "http://localhost:9101"
       pubkeysPath: "/tessera"
       pubkeyFile: "tm.pub"
-      onchainGroupsEnabled: false
+      flexibleGroupsEnabled: false
     permissions:
       enabled: false
       filePath: ""
@@ -131,7 +131,7 @@ node:
   tessera:
     resources:
       cpuLimit: 1
-      cpuRequest: 0.5
+      cpuRequest: 0.1
       memLimit: "2G"
       memRequest: "1G"
     tmkey: ""
@@ -147,11 +147,11 @@ node:
 image:
   besu:
     repository: hyperledger/besu
-    tag: 22.7.2
+    tag: 24.2.0
     pullPolicy: IfNotPresent
   tessera:
     repository: quorumengineering/tessera
-    tag: 22.1.7
+    tag: 23.4.0
     pullPolicy: IfNotPresent
   hooks:
     repository: consensys/quorum-k8s-hooks

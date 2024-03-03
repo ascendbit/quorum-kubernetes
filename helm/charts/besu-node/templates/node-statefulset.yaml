@@ -32,11 +32,16 @@ spec:
       app.kubernetes.io/managed-by: helm
   serviceName: {{ include "besu-node.fullname" . }}
   volumeClaimTemplates:
-  - metadata:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
       name: data
+      annotations:
+        everest.io/disk-volume-type: SAS
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: {{ include "besu-node.fullname" . }}-storage
+      storageClassName: {{ .Values.storage.storageClassName }}
+      volumeMode: Filesystem
       resources:
         requests:
           storage: "{{ .Values.storage.pvcSizeLimit }}"
@@ -238,6 +243,11 @@ spec:
             readOnly: true
 {{- end }}            
 {{- end }}
+{{- if .Values.node.besu.rpc.credentialsFile }}
+          - name: besu-rpc-creds
+            mountPath: /config/rpc
+            readOnly: true
+{{- end }}
           - name: genesis
             mountPath: /etc/genesis
             readOnly: true
@@ -286,8 +296,8 @@ spec:
           periodSeconds: 60
       volumes:
       - name: genesis
-        configMap:
-          name: besu-genesis
+        secret:
+          secretName: besu-genesis
           items:
             - key: genesis.json
               path: genesis.json
@@ -331,4 +341,11 @@ spec:
         configMap:
           name: {{ include "besu-node.fullname" . }}-permissions
 {{- end }}
-
+{{- if .Values.node.besu.rpc.credentialsFile }}
+      - name: besu-rpc-creds
+        secret:
+          secretName: {{ include "besu-node.fullname" . }}-secret
+          items:
+            - key: auth.toml
+              path: auth.toml
+{{- end }}

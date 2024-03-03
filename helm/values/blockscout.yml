@@ -1,0 +1,20 @@
+frontend:
+  env:
+    NEXT_PUBLIC_APP_HOST: localhost
+    NEXT_PUBLIC_API_HOST: localhost
+    NEXT_PUBLIC_NETWORK_ID: 1337
+    NEXT_PUBLIC_NETWORK_RPC_URL: "http://besu-node-rpc-1.besu.svc.cluster.local:8545"
+blockscout:
+  env:
+    DATABASE_URL: "postgresql://postgres:B3SUbl0cksc0ut@postgresql.postgresql.svc.cluster.local:5432/besu-blockscout?ssl=false"
+    ETHEREUM_JSONRPC_VARIANT: "besu"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-rpc-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-rpc-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-rpc-1.besu.svc.cluster.local:8546"
+    ETHEREUM_JSONRPC_USER: "admin"
+    ETHEREUM_JSONRPC_PASSWORD: "Sre@dmin"
+    CHAIN_ID: "1337"
+    NETWORK: "POA"
+    SUBNETWORK: "POA Sokol"
+    ECTO_USE_SSL: "false"
+    DISABLE_EXCHANGE_RATES: "true"

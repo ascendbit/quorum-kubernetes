@@ -1,0 +1,11 @@
+global:
+  storageClass: csi-disk-topology
+  postgresql:
+    auth:
+      postgresPassword: "B3SUbl0cksc0ut"
+      username: "besu-blockscout"
+      password: "DaDYxBqcv4M0fNOv"
+      database: "besu-blockscout"
+primary:
+  extendedConfiguration: "max_connections = 1000"
+

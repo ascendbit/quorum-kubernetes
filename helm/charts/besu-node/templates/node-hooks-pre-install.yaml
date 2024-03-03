@@ -35,7 +35,7 @@ spec:
 {{- else if and (eq .Values.cluster.provider "aws") (.Values.cluster.cloudNativeServices) }}
       serviceAccountName: {{ .Values.aws.serviceAccountName }}
 {{- else }}
-      serviceAccountName: {{ include "besu-node.fullname" . }}-sa
+      serviceAccountName: {{ include "besu-node.fullname" . }}-hooks-sa
 {{- end }}
       restartPolicy: "OnFailure"
       containers:
@@ -90,6 +90,11 @@ spec:
                 if [ $? -ne 0 ]; then
                   echo "[]" > /tmp/besu-bootnodes-json.raw
                   kubectl -n {{ .Release.Namespace }} create configmap besu-bootnodes --from-file=bootnodes-json=/tmp/besu-bootnodes-json.raw --from-literal=bootnodes-string=""
+                fi
+
+                out=$(kubectl -n {{ .Release.Namespace }} get configmap besu-bootnodes -o jsonpath='{.data.bootnodes-json}')
+                if [ -z "$out" ]; then
+                  kubectl -n {{ .Release.Namespace }} create configmap besu-bootnodes --from-literal=bootnodes-json="[]" --from-literal=bootnodes-string="" -o yaml --dry-run=client | kubectl replace -f -
                 fi
 
                 echo "updating besu-bootnodes..."

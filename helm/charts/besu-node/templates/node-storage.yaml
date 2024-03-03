@@ -47,25 +47,25 @@ parameters:
 #   gidRangeEnd: "2000" # optional
 #   basePath: "/dynamic_provisioning" # optional
 
-{{- else }}
+# {{- else }}
 
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ include "besu-node.fullname" . }}-storage
-  namespace: {{ .Release.Namespace }}
-  labels:
-    type: local
-spec:
-  persistentVolumeReclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
-  storageClassName: {{ include "besu-node.fullname" . }}-storage
-  capacity:
-    storage: "{{ .Values.storage.sizeLimit }}"
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/tmp/{{ include "besu-node.fullname" . }}"
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: {{ include "besu-node.fullname" . }}-storage
+#   namespace: {{ .Release.Namespace }}
+#   labels:
+#     type: local
+# spec:
+#   persistentVolumeReclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
+#   storageClassName: {{ include "besu-node.fullname" . }}-storage
+#   capacity:
+#     storage: "{{ .Values.storage.sizeLimit }}"
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: "/tmp/{{ include "besu-node.fullname" . }}"
 
-{{- end }}
+# {{- end }}
 

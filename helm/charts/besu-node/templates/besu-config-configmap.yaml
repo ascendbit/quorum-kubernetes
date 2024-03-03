@@ -27,8 +27,7 @@ data:
     node-private-key-file={{.Values.node.besu.privateKeyPath | quote }}
 
     # Transaction Pool
-    tx-pool-retention-hours={{ .Values.node.besu.txPool.retentionHours }}
-    tx-pool-max-size={{ .Values.node.besu.txPool.maxSize }}
+    tx-pool="{{ .Values.node.besu.txPool.type }}"
 
     {{ if  .Values.node.besu.p2p.enabled -}}
     # P2P network
@@ -52,6 +51,9 @@ data:
     rpc-http-api={{ .Values.node.besu.rpc.api }}
     rpc-http-cors-origins={{ .Values.node.besu.rpc.corsOrigins }}
     rpc-http-authentication-enabled={{ .Values.node.besu.rpc.authenticationEnabled }}
+    {{ if .Values.node.besu.rpc.authenticationEnabled }}
+    rpc-http-authentication-credentials-file="/config/rpc/auth.toml"
+    {{ end }}
     rpc-http-max-active-connections={{ .Values.node.besu.rpc.maxActiveConnections }}
     revert-reason-enabled=true
     {{ end }}
@@ -94,7 +96,7 @@ data:
     {{ else }}
     privacy-public-key-file="{{ .Values.node.besu.privacy.pubkeysPath }}/{{ .Values.node.besu.privacy.pubkeyFile }}"
     {{ end }}
-    privacy-onchain-groups-enabled={{ .Values.node.besu.privacy.onchainGroupsEnabled }}
+    privacy-flexible-groups-enabled={{ .Values.node.besu.privacy.flexibleGroupsEnabled }}
     {{ end }}
 
     {{ if  .Values.node.besu.metrics.enabled -}}
