@@ -21,3 +21,6 @@ node:
     customLabels:
       nodeType: bootnode
 
+service:
+  type: NodePort
+

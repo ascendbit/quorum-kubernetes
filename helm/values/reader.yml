@@ -18,12 +18,12 @@ node:
       serviceMonitorEnabled: true
     account:
       password: 'password'
-    rpc:
-      authenticationEnabled: true
-      credentialsFile: |-
-        [Users.admin]
-        password = "$2a$10$.jZMNOhnOltlzp0p31KwTedTFQylD1wXQePeT0RDoZD0cbuQp/MXS"
-        permissions=["*:*"]
+    # rpc:
+    #   authenticationEnabled: true
+    #   credentialsFile: |-
+    #     [Users.admin]
+    #     password = "$2a$10$.jZMNOhnOltlzp0p31KwTedTFQylD1wXQePeT0RDoZD0cbuQp/MXS"
+    #     permissions=["*:*"]
 
   tessera:
     password: 'password'

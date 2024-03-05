@@ -1,20 +1,36 @@
 frontend:
+  replicaCount: 1
+  ingress:
+    enabled: true
+    className: "kong"
+    annotations:
+      konghq.com/strip-path: "false"
+    hostname: "blockscout.abc-dev.network"
   env:
-    NEXT_PUBLIC_APP_HOST: localhost
-    NEXT_PUBLIC_API_HOST: localhost
+    NEXT_PUBLIC_APP_HOST: "blockscout.abc-dev.network"
+    NEXT_PUBLIC_API_HOST: "api-blockscout.abc-dev.network"
     NEXT_PUBLIC_NETWORK_ID: 1337
-    NEXT_PUBLIC_NETWORK_RPC_URL: "http://besu-node-rpc-1.besu.svc.cluster.local:8545"
+    NEXT_PUBLIC_NETWORK_NAME: "ABC BAAS"
 blockscout:
+  ingress:
+    enabled: true
+    className: "kong"
+    annotations:
+      konghq.com/strip-path: "false"
+    hostname: "api-blockscout.abc-dev.network"
   env:
-    DATABASE_URL: "postgresql://postgres:B3SUbl0cksc0ut@postgresql.postgresql.svc.cluster.local:5432/besu-blockscout?ssl=false"
+    DATABASE_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.hwc-internal.abc-dev.network:5432/blockscout?ssl=false"
+    # DATABASE_READ_ONLY_API_URL: ""
     ETHEREUM_JSONRPC_VARIANT: "besu"
-    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-rpc-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-rpc-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-rpc-1.besu.svc.cluster.local:8546"
-    ETHEREUM_JSONRPC_USER: "admin"
-    ETHEREUM_JSONRPC_PASSWORD: "Sre@dmin"
+    ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-member-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-member-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-member-1.besu.svc.cluster.local:8546"
+    # ETHEREUM_JSONRPC_USER: ""
+    # ETHEREUM_JSONRPC_PASSWORD: ""
     CHAIN_ID: "1337"
     NETWORK: "POA"
     SUBNETWORK: "POA Sokol"
     ECTO_USE_SSL: "false"
     DISABLE_EXCHANGE_RATES: "true"
+    SECRET_KEY_BASE: "/4uFMwibZ618P3IpkFQXck0Ul9g9kZUKAsP4x3tIzGOLRAE1aOGHsaSP8Ee2LUXP"

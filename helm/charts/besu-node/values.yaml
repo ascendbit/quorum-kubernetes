@@ -158,3 +158,5 @@ image:
     tag: qgt-0.2.12
     pullPolicy: IfNotPresent
 
+service:
+  type: ClusterIP
