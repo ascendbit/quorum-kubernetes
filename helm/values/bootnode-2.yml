@@ -1,0 +1,27 @@
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: false
+  isBootnode: true
+  usesBootnodes: false
+
+cluster:
+  provider: local
+  cloudNativeServices: false
+  reclaimPolicy: Retain
+
+node:
+  besu:
+    envBesuOpts: ""
+    metrics:
+      serviceMonitorEnabled: false
+    account:
+      password: 'password'
+    customLabels:
+      nodeType: bootnode
+
+storage:
+  pvcSizeLimit: 1Gi
+
+affinity:
+  zone:
+  - ap-southeast-2b

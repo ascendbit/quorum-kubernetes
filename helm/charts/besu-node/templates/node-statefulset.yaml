@@ -57,6 +57,9 @@ spec:
         app.kubernetes.io/namespace: {{ .Release.Namespace }}
         app.kubernetes.io/release: {{ .Release.Name }}
         app.kubernetes.io/managed-by: helm
+        {{- range $labelName, $labelValue := .Values.node.besu.customLabels }}
+        {{ $labelName }}: {{ $labelValue }}
+        {{- end }}
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: {{ .Values.node.besu.metrics.port | quote}}
@@ -286,14 +289,32 @@ spec:
             /opt/besu/bin/besu \
               --config-file=/etc/besu/config.toml \
               --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name={{ include "besu-node.fullname" . }} \
-              --min-gas-price=0 
-
+              --min-gas-price=0 \
+              --tx-pool-min-gas-price=0
         livenessProbe:
           httpGet:
             path: /liveness
             port: 8545
           initialDelaySeconds: 180
           periodSeconds: 60
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values:
+                {{- with .Values.affinity.zone }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/part-of: {{ include "besu-node.fullname" . }}
       volumes:
       - name: genesis
         secret:

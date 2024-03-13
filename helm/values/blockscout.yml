@@ -1,4 +1,9 @@
+config:
+  prometheus:
+    enabled: false
 frontend:
+  image:
+    tag: "v1.25.2"
   replicaCount: 1
   ingress:
     enabled: true
@@ -7,11 +12,20 @@ frontend:
       konghq.com/strip-path: "false"
     hostname: "blockscout.abc-dev.network"
   env:
-    NEXT_PUBLIC_APP_HOST: "blockscout.abc-dev.network"
+    NEXT_PUBLIC_AD_BANNER_PROVIDER: "none"
+    NEXT_PUBLIC_AD_TEXT_PROVIDER: "none"
     NEXT_PUBLIC_API_HOST: "api-blockscout.abc-dev.network"
+    NEXT_PUBLIC_API_PORT: "443"
+    NEXT_PUBLIC_APP_HOST: "blockscout.abc-dev.network"
+    NEXT_PUBLIC_APP_PORT: "443"
+    NEXT_PUBLIC_IS_TESTNET: "true"
     NEXT_PUBLIC_NETWORK_ID: 1337
     NEXT_PUBLIC_NETWORK_NAME: "ABC BAAS"
+    NEXT_PUBLIC_NETWORK_VERIFICATION_TYPE: "validation"
+    NEXT_PUBLIC_STATS_API_HOST: "http://blockscout-blockscout-stack-stats-svc.blockscout.svc.cluster.local"
 blockscout:
+  image:
+    tag: "6.2.2"
   ingress:
     enabled: true
     className: "kong"
@@ -19,13 +33,13 @@ blockscout:
       konghq.com/strip-path: "false"
     hostname: "api-blockscout.abc-dev.network"
   env:
-    DATABASE_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.hwc-internal.abc-dev.network:5432/blockscout?ssl=false"
-    # DATABASE_READ_ONLY_API_URL: ""
+    DATABASE_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.hwc-internal.abc-dev.network:5432/blockscout"
+    DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.hwc-internal.abc-dev.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
-    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-member-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-member-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-member-1.besu.svc.cluster.local:8546"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-1.besu.svc.cluster.local:8546"
     # ETHEREUM_JSONRPC_USER: ""
     # ETHEREUM_JSONRPC_PASSWORD: ""
     CHAIN_ID: "1337"
@@ -34,3 +48,16 @@ blockscout:
     ECTO_USE_SSL: "false"
     DISABLE_EXCHANGE_RATES: "true"
     SECRET_KEY_BASE: "/4uFMwibZ618P3IpkFQXck0Ul9g9kZUKAsP4x3tIzGOLRAE1aOGHsaSP8Ee2LUXP"
+    BLOCKSCOUT_HOST: "blockscout.abc-dev.network"
+    BLOCKSCOUT_PROTOCOL: "http"
+    SHOW_PRICE_CHART: "true"
+    SHOW_TXS_CHART: "true"
+    TXS_STATS_ENABLED: "true"
+stats:
+  enabled: true
+  image:
+    tag: "v1.5.1"
+  env:
+    STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.hwc-internal.abc-dev.network:5432/blockscout"
+    STATS__DB_URL: "postgresql://blockscout-stats:AhVu9185K1hliFgp@rds.hwc-internal.abc-dev.network:5432/blockscout-stats"
+    STATS__RUN_MIGRATIONS: "true"
