@@ -47,7 +47,7 @@ volumePermissionsFix:
 
 node:
   besu:
-    envBesuOpts: ""
+    envBesuOpts: "-XX:MaxRAMPercentage=70.0"
     resources:
       cpuLimit: 0.7
       cpuRequest: 0.1
@@ -78,6 +78,7 @@ node:
       api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "TRACE", "EEA", "PRIV", "QBFT", "PERM", "TXPOOL"]'
       corsOrigins: '["all"]'
       authenticationEnabled: false
+        # type: jwt #userpass|jwt
       # Number of allowed active RPC connections for Besu node
       maxActiveConnections: 80
     ws:
@@ -86,6 +87,7 @@ node:
       port: 8546
       api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "TRACE", "EEA", "PRIV", "QBFT", "PERM", "TXPOOL"]'
       authenticationEnabled: false
+        # type: jwt #userpass|jwt
     graphql:
       enabled: false
       host: "0.0.0.0"
@@ -147,7 +149,7 @@ node:
 image:
   besu:
     repository: hyperledger/besu
-    tag: 24.1.2
+    tag: 24.3.0
     pullPolicy: IfNotPresent
   tessera:
     repository: quorumengineering/tessera

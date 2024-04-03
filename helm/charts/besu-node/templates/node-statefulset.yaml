@@ -246,7 +246,7 @@ spec:
             readOnly: true
 {{- end }}            
 {{- end }}
-{{- if .Values.node.besu.rpc.credentialsFile }}
+{{- if and .Values.node.besu.rpc.authenticationEnabled (or .Values.node.besu.rpc.publicRSAKey .Values.node.besu.rpc.credentialsFile) }}
           - name: besu-rpc-creds
             mountPath: /config/rpc
             readOnly: true
@@ -290,7 +290,9 @@ spec:
               --config-file=/etc/besu/config.toml \
               --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name={{ include "besu-node.fullname" . }} \
               --min-gas-price=0 \
-              --tx-pool-min-gas-price=0
+              --tx-pool-min-gas-price=0 \
+              --tx-pool=sequenced \
+              --tx-pool-limit-by-account-percentage=1.0
         livenessProbe:
           httpGet:
             path: /liveness
@@ -362,11 +364,18 @@ spec:
         configMap:
           name: {{ include "besu-node.fullname" . }}-permissions
 {{- end }}
-{{- if .Values.node.besu.rpc.credentialsFile }}
+{{- if eq .Values.node.besu.rpc.type "userpass" }}
       - name: besu-rpc-creds
         secret:
           secretName: {{ include "besu-node.fullname" . }}-secret
           items:
             - key: auth.toml
               path: auth.toml
+{{- else if and (eq .Values.node.besu.rpc.type "jwt") (.Values.node.besu.rpc.publicRSAKey) }}
+      - name: besu-rpc-creds
+        configMap:
+          name: {{ include "besu-node.fullname" . }}-besu-pem
+          items:
+            - key: publicRSAKey.pem
+              path: publicRSAKey.pem
 {{- end }}

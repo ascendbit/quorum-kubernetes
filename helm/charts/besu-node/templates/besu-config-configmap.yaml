@@ -47,9 +47,13 @@ data:
     rpc-http-port={{ .Values.node.besu.rpc.port }}
     rpc-http-api={{ .Values.node.besu.rpc.api }}
     rpc-http-cors-origins={{ .Values.node.besu.rpc.corsOrigins }}
-    rpc-http-authentication-enabled={{ .Values.node.besu.rpc.authenticationEnabled }}
     {{ if .Values.node.besu.rpc.authenticationEnabled }}
+    rpc-http-authentication-enabled=true
+    {{ if eq .Values.node.besu.rpc.type "userpass" }}
     rpc-http-authentication-credentials-file="/config/rpc/auth.toml"
+    {{ else if and (eq .Values.node.besu.rpc.type "jwt") (.Values.node.besu.rpc.publicRSAKey) }}
+    rpc-http-authentication-jwt-public-key-file="/config/rpc/publicRSAKey.pem"
+    {{ end }}
     {{ end }}
     rpc-http-max-active-connections={{ .Values.node.besu.rpc.maxActiveConnections }}
     revert-reason-enabled=true
@@ -117,3 +121,22 @@ data:
     {{ if eq .Values.node.besu.sync.mode "FAST" }}
     fast-sync-min-peers=1
     {{ end }}
+
+{{ if and (.Values.node.besu.rpc.authenticationEnabled) (eq .Values.node.besu.rpc.type "jwt") (.Values.node.besu.rpc.publicRSAKey) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "besu-node.fullname" . }}-besu-pem
+  labels:
+    app.kubernetes.io/name: besu-pem
+    app.kubernetes.io/component: besu
+    app.kubernetes.io/part-of: {{ include "besu-node.fullname" . }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/release: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: helm
+  namespace: {{ .Release.Namespace }}
+data:
+  publicRSAKey.pem: |
+    {{- tpl .Values.node.besu.rpc.publicRSAKey . | nindent 4 -}}
+{{ end }}
