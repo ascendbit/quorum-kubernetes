@@ -34,7 +34,7 @@ blockscout:
     hostname: "api-blockscout.abc-dev.network"
   env:
     DATABASE_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
-    DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
+    # DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
     ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
@@ -53,6 +53,9 @@ blockscout:
     SHOW_PRICE_CHART: "true"
     SHOW_TXS_CHART: "true"
     TXS_STATS_ENABLED: "true"
+    POOL_SIZE: 2
+    POOL_SIZE_API: 2
+    TXS_STATS_DAYS_TO_COMPILE_AT_INIT: 2
 stats:
   enabled: true
   image:
