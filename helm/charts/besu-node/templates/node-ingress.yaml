@@ -26,31 +26,31 @@ spec:
         path: /
         pathType: Prefix
 {{- end }}
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    konghq.com/strip-path: "false"
-  labels:
-    app.kubernetes.io/name: {{ include "besu-node.fullname" . }}
-    app.kubernetes.io/component: ingress
-    app.kubernetes.io/part-of: {{ include "besu-node.fullname" . }}
-    app.kubernetes.io/namespace: {{ .Release.Namespace }}
-    app.kubernetes.io/release: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: helm
-  name: {{ include "besu-node.fullname" . }}
-  namespace: {{ .Release.Namespace }}
-spec:
-  ingressClassName: kong
-  rules:
-  - host: {{ .Release.Namespace }}-{{ .Release.Name }}.abc-dev.network
-    http:
-      paths:
-      - backend:
-          service:
-            name: {{ include "besu-node.fullname" . }}
-            port:
-              number: 8545
-        path: /
-        pathType: Prefix
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     konghq.com/strip-path: "false"
+#   labels:
+#     app.kubernetes.io/name: {{ include "besu-node.fullname" . }}
+#     app.kubernetes.io/component: ingress
+#     app.kubernetes.io/part-of: {{ include "besu-node.fullname" . }}
+#     app.kubernetes.io/namespace: {{ .Release.Namespace }}
+#     app.kubernetes.io/release: {{ .Release.Name }}
+#     app.kubernetes.io/managed-by: helm
+#   name: {{ include "besu-node.fullname" . }}
+#   namespace: {{ .Release.Namespace }}
+# spec:
+#   ingressClassName: kong
+#   rules:
+#   - host: {{ .Release.Namespace }}-{{ .Release.Name }}.abc-dev.network
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: {{ include "besu-node.fullname" . }}
+#             port:
+#               number: 8545
+#         path: /
+#         pathType: Prefix
