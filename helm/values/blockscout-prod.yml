@@ -10,13 +10,13 @@ frontend:
     className: "kong"
     annotations:
       konghq.com/strip-path: "false"
-    hostname: "blockscout.abc-dev.network"
+    hostname: "blockscout.ascendbit.network"
   env:
     NEXT_PUBLIC_AD_BANNER_PROVIDER: "none"
     NEXT_PUBLIC_AD_TEXT_PROVIDER: "none"
-    NEXT_PUBLIC_API_HOST: "api-blockscout.abc-dev.network"
+    NEXT_PUBLIC_API_HOST: "api-blockscout.ascendbit.network"
     NEXT_PUBLIC_API_PORT: "443"
-    NEXT_PUBLIC_APP_HOST: "blockscout.abc-dev.network"
+    NEXT_PUBLIC_APP_HOST: "blockscout.ascendbit.network"
     NEXT_PUBLIC_APP_PORT: "443"
     NEXT_PUBLIC_IS_TESTNET: "true"
     NEXT_PUBLIC_NETWORK_ID: 9988
@@ -31,10 +31,10 @@ blockscout:
     className: "kong"
     annotations:
       konghq.com/strip-path: "false"
-    hostname: "api-blockscout.abc-dev.network"
+    hostname: "api-blockscout.ascendbit.network"
   env:
-    DATABASE_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
-    # DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
+    DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@rds.in.ascendbit.network:5432/blockscout"
+    # DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.ascendbit.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
     ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
@@ -47,8 +47,8 @@ blockscout:
     SUBNETWORK: "POA Sokol"
     ECTO_USE_SSL: "false"
     DISABLE_EXCHANGE_RATES: "true"
-    SECRET_KEY_BASE: "/4uFMwibZ618P3IpkFQXck0Ul9g9kZUKAsP4x3tIzGOLRAE1aOGHsaSP8Ee2LUXP"
-    BLOCKSCOUT_HOST: "blockscout.abc-dev.network"
+    SECRET_KEY_BASE: "uFwkcFHfs9aLjHljGHKo726xieAuMHsH4d5jtqWnEBMgFSGCNA/L0BFoh85YASQt"
+    BLOCKSCOUT_HOST: "blockscout.ascendbit.network"
     BLOCKSCOUT_PROTOCOL: "http"
     SHOW_PRICE_CHART: "true"
     SHOW_TXS_CHART: "true"
@@ -61,6 +61,6 @@ stats:
   image:
     tag: "v1.5.1"
   env:
-    STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
-    STATS__DB_URL: "postgresql://blockscout-stats:AhVu9185K1hliFgp@rds.in.abc-dev.network:5432/blockscout-stats"
+    STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@rds.in.ascendbit.network:5432/blockscout"
+    STATS__DB_URL: "postgresql://blockscout-stats:iyi2psVgJ4JLrtkf@rds.in.ascendbit.network:5432/blockscout-stats"
     STATS__RUN_MIGRATIONS: "true"
