@@ -9,8 +9,14 @@ frontend:
     enabled: true
     className: "kong"
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      konghq.com/https-redirect-status-code: "301"
+      konghq.com/protocols: "https"
       konghq.com/strip-path: "false"
     hostname: "blockscout.ascendbit.network"
+    tls:
+      enabled: true
+      secretName: blockscout-cert-tls
   env:
     NEXT_PUBLIC_AD_BANNER_PROVIDER: "none"
     NEXT_PUBLIC_AD_TEXT_PROVIDER: "none"
@@ -22,7 +28,7 @@ frontend:
     NEXT_PUBLIC_NETWORK_ID: 9988
     NEXT_PUBLIC_NETWORK_NAME: "ABC BAAS"
     NEXT_PUBLIC_NETWORK_VERIFICATION_TYPE: "validation"
-    NEXT_PUBLIC_STATS_API_HOST: "http://blockscout-blockscout-stack-stats-svc.blockscout.svc.cluster.local"
+    NEXT_PUBLIC_STATS_API_HOST: "https://stats-blockscout.ascendbit.network"
 blockscout:
   image:
     tag: "6.2.2"
@@ -30,18 +36,22 @@ blockscout:
     enabled: true
     className: "kong"
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      konghq.com/https-redirect-status-code: "301"
+      konghq.com/plugins: response-header
+      konghq.com/protocols: "https"
       konghq.com/strip-path: "false"
     hostname: "api-blockscout.ascendbit.network"
+    tls:
+      enabled: true
+      secretName: api-blockscout-cert-tls
   env:
     DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@rds.in.ascendbit.network:5432/blockscout"
-    # DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.ascendbit.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
     ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
     ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
     ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-1.besu.svc.cluster.local:8546"
-    # ETHEREUM_JSONRPC_USER: ""
-    # ETHEREUM_JSONRPC_PASSWORD: ""
     CHAIN_ID: "9988"
     NETWORK: "POA"
     SUBNETWORK: "POA Sokol"
@@ -60,6 +70,19 @@ stats:
   enabled: true
   image:
     tag: "v1.5.1"
+  ingress:
+    enabled: true
+    className: "kong"
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      konghq.com/https-redirect-status-code: "301"
+      konghq.com/plugins: response-header
+      konghq.com/protocols: "https"
+      konghq.com/strip-path: "false"
+    hostname: "stats-blockscout.ascendbit.network"
+    tls:
+      enabled: true
+      secretName: stats-blockscout-cert-tls
   env:
     STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@rds.in.ascendbit.network:5432/blockscout"
     STATS__DB_URL: "postgresql://blockscout-stats:iyi2psVgJ4JLrtkf@rds.in.ascendbit.network:5432/blockscout-stats"

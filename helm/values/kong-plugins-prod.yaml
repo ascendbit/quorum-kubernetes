@@ -1,0 +1,44 @@
+# Besu
+apiVersion: v1
+kind: Secret
+metadata:
+  name: consumer-besu-basic-auth
+  namespace: besu
+  labels:
+    konghq.com/credential: basic-auth
+stringData:
+     username: {XXXX}
+     password: {XXXX}
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: httpbin-basic-auth
+  namespace: besu
+plugin: basic-auth
+config:
+  anonymous: anonymous
+  hide_credentials: true
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: besu-basic-authen
+  namespace: besu
+  annotations:
+    kubernetes.io/ingress.class: kong
+username: {XXXX}
+credentials:
+- consumer-besu-basic-auth
+---
+### Blockscout
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: response-header
+  namespace: blockscout
+plugin: response-transformer
+config:
+  add:
+    headers:
+    - Access-Control-Allow-Origin:https://blockscout.ascendbit.network
