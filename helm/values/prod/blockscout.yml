@@ -5,6 +5,13 @@ frontend:
   image:
     tag: "v1.25.2"
   replicaCount: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
   ingress:
     enabled: true
     className: "kong"
@@ -32,6 +39,13 @@ frontend:
 blockscout:
   image:
     tag: "6.2.2"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 250Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
   ingress:
     enabled: true
     className: "kong"
@@ -46,12 +60,12 @@ blockscout:
       enabled: true
       secretName: api-blockscout-cert-tls
   env:
-    DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@rds.in.ascendbit.network:5432/blockscout"
+    DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@blockscout-rds.in.ascendbit.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
-    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-1.besu.svc.cluster.local:8546"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive.besu.svc.cluster.local:8546"
     CHAIN_ID: "9988"
     NETWORK: "POA"
     SUBNETWORK: "POA Sokol"
@@ -63,13 +77,20 @@ blockscout:
     SHOW_PRICE_CHART: "true"
     SHOW_TXS_CHART: "true"
     TXS_STATS_ENABLED: "true"
-    POOL_SIZE: 2
-    POOL_SIZE_API: 2
+    POOL_SIZE: 10
+    POOL_SIZE_API: 10
     TXS_STATS_DAYS_TO_COMPILE_AT_INIT: 2
 stats:
   enabled: true
   image:
     tag: "v1.5.1"
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
   ingress:
     enabled: true
     className: "kong"
@@ -84,6 +105,6 @@ stats:
       enabled: true
       secretName: stats-blockscout-cert-tls
   env:
-    STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@rds.in.ascendbit.network:5432/blockscout"
-    STATS__DB_URL: "postgresql://blockscout-stats:iyi2psVgJ4JLrtkf@rds.in.ascendbit.network:5432/blockscout-stats"
+    STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@blockscout-rds.in.ascendbit.network:5432/blockscout"
+    STATS__DB_URL: "postgresql://blockscout-stats:iyi2psVgJ4JLrtkf@blockscout-rds.in.ascendbit.network:5432/blockscout-stats"
     STATS__RUN_MIGRATIONS: "true"

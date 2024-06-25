@@ -1,4 +1,4 @@
-{{- if (and (eq .Values.node.besu.customLabels.nodeType "rpc") (ne .Release.Name "rpc-2")) }}
+{{- if (and (or (eq .Values.node.besu.customLabels.nodeType "rpc") (eq .Values.node.besu.customLabels.nodeType "archive")) (and (ne .Release.Name "rpc-2") (ne .Release.Name "archive-2"))) }}
 ---
 apiVersion: v1
 kind: Service
@@ -6,9 +6,9 @@ metadata:
   labels:
     app.kubernetes.io/component: service
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: besu-node-rpc
+    app.kubernetes.io/name: besu-node-{{ .Values.node.besu.customLabels.nodeType }}
     app.kubernetes.io/namespace: besu
-  name: besu-node-rpc
+  name: besu-node-{{ .Values.node.besu.customLabels.nodeType }}
   namespace: besu
 spec:
   ports:
@@ -38,7 +38,7 @@ spec:
     targetPort: metrics
   selector:
     app.kubernetes.io/namespace: besu
-    nodeType: rpc
+    nodeType: {{ .Values.node.besu.customLabels.nodeType }}
   type: ClusterIP
 {{- end }}
 ---

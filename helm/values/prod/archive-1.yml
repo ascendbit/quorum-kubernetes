@@ -1,0 +1,34 @@
+image:
+  besu:
+    tag: 24.6.0
+
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: false
+  isBootnode: false
+  usesBootnodes: true
+
+cluster:
+  provider: local
+  cloudNativeServices: false
+  reclaimPolicy: Retain
+
+node:
+  besu:
+    customLabels:
+      nodeType: archive
+    metrics:
+      serviceMonitorEnabled: false
+    sync:
+      mode: FULL
+    rpc:
+      api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'
+    ws:
+      api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'
+
+storage:
+  pvcSizeLimit: 2Gi
+
+affinity:
+  zone:
+  - ap-southeast-2a

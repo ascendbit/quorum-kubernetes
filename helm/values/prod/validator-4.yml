@@ -1,0 +1,38 @@
+image:
+  besu:
+    tag: 24.6.0
+
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: false
+  isBootnode: false
+  usesBootnodes: true
+
+cluster:
+  provider: local
+  cloudNativeServices: false
+  reclaimPolicy: Retain
+
+node:
+  besu:
+    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0"
+    resources:
+      cpuLimit: "1001m"
+      cpuRequest: "100m"
+      memLimit: "3G"
+      memRequest: "3G"
+    metrics:
+      serviceMonitorEnabled: false
+    sync:
+      mode: FAST
+    rpc:
+      api: '["ETH", "ADMIN", "NET", "QBFT"]'
+    ws:
+      api: '["ETH", "ADMIN", "NET", "QBFT"]'
+
+storage:
+  pvcSizeLimit: 1Gi
+
+affinity:
+  zone:
+  - ap-southeast-2a

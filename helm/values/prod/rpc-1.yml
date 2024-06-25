@@ -1,0 +1,42 @@
+image:
+  besu:
+    tag: 24.6.0
+
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: false
+  isBootnode: false
+  usesBootnodes: true
+
+cluster:
+  provider: local
+  cloudNativeServices: false
+  reclaimPolicy: Retain
+
+node:
+  besu:
+    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0"
+    resources:
+      cpuLimit: "1001m"
+      cpuRequest: "100m"
+      memLimit: "2G"
+      memRequest: "500Mi"
+    metrics:
+      serviceMonitorEnabled: false
+    customLabels:
+      nodeType: rpc
+    rpc:
+      api: '["ETH", "ADMIN", "NET", "QBFT", "TXPOOL"]'
+    ws:
+      api: '["ETH", "ADMIN", "NET", "QBFT", "TXPOOL"]'
+
+storage:
+  pvcSizeLimit: 1Gi
+
+affinity:
+  zone:
+  - ap-southeast-2a
+
+ingress:
+  enabled: true
+  host: besu-rpc.ascendbit.network

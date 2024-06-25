@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    konghq.com/strip-path: "false"
+    konghq.com/plugins: httpbin-basic-auth
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/name: besu-node-rpc-internal
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-internal
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: lmn.in.ascendbit.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix

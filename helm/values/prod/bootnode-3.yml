@@ -1,0 +1,33 @@
+image:
+  besu:
+    tag: 24.6.0
+
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: false
+  isBootnode: true
+  usesBootnodes: false
+
+cluster:
+  provider: local
+  cloudNativeServices: false
+  reclaimPolicy: Retain
+
+node:
+  besu:
+    envBesuOpts: "-XX:MaxRAMPercentage=50.0 -XX:MinRAMPercentage=50.0 -XX:InitialRAMPercentage=50.0"
+    metrics:
+      serviceMonitorEnabled: false
+    customLabels:
+      nodeType: bootnode
+    rpc:
+      api: '["ETH", "ADMIN", "NET", "QBFT"]'
+    ws:
+      api: '["ETH", "ADMIN", "NET", "QBFT"]'
+
+storage:
+  pvcSizeLimit: 1Gi
+
+affinity:
+  zone:
+  - ap-southeast-2c

@@ -10,7 +10,20 @@ frontend:
     className: "kong"
     annotations:
       konghq.com/strip-path: "false"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      konghq.com/protocols: "https"
+      konghq.com/https-redirect-status-code: "301"
     hostname: "blockscout.abc-dev.network"
+    tls:
+      enabled: true
+      secretName: wildcard-cert-tls
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
   env:
     NEXT_PUBLIC_AD_BANNER_PROVIDER: "none"
     NEXT_PUBLIC_AD_TEXT_PROVIDER: "none"
@@ -32,6 +45,13 @@ blockscout:
     annotations:
       konghq.com/strip-path: "false"
     hostname: "api-blockscout.abc-dev.network"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
   env:
     DATABASE_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
     # DATABASE_READ_ONLY_API_URL: "postgresql://blockscout:B3SUbl0cksc0ut@rds.in.abc-dev.network:5432/blockscout"
