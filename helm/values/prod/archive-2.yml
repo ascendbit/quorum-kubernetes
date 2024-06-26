@@ -15,6 +15,11 @@ cluster:
 
 node:
   besu:
+    resources:
+      cpuLimit: "1500m"
+      cpuRequest: "100m"
+      memLimit: "2G"
+      memRequest: "500Mi"
     customLabels:
       nodeType: archive
     metrics:
@@ -22,6 +27,7 @@ node:
     sync:
       mode: FULL
     rpc:
+      maxActiveConnections: 500
       api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'
     ws:
       api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'

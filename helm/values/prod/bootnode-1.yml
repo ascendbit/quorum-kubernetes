@@ -1,3 +1,7 @@
+image:
+  besu:
+    tag: 24.6.0
+
 quorumFlags:
   privacy: false
   removeKeysOnDelete: false
@@ -12,12 +16,19 @@ cluster:
 node:
   besu:
     envBesuOpts: ""
+    resources:
+      cpuLimit: "1001m"
+      cpuRequest: "100m"
+      memLimit: "2G"
+      memRequest: "500Mi"
     metrics:
       serviceMonitorEnabled: false
-    account:
-      password: 'password'
     customLabels:
       nodeType: bootnode
+    rpc:
+      api: '["ETH", "ADMIN", "NET", "QBFT"]'
+    ws:
+      api: '["ETH", "ADMIN", "NET", "QBFT"]'
 
 storage:
   pvcSizeLimit: 1Gi
