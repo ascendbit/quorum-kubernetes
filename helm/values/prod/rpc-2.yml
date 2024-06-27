@@ -1,3 +1,7 @@
+image:
+  besu:
+    tag: 24.6.0
+
 quorumFlags:
   privacy: false
   removeKeysOnDelete: false
@@ -11,22 +15,20 @@ cluster:
 
 node:
   besu:
+    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0"
+    resources:
+      cpuLimit: "1001m"
+      cpuRequest: "100m"
+      memLimit: "4G"
+      memRequest: "4G"
     metrics:
       serviceMonitorEnabled: false
-    account:
-      password: 'password'
     customLabels:
       nodeType: rpc
     rpc:
-      authenticationEnabled: true
-      type: userpass
-      credentialsFile: |-
-        [Users.admin]
-        password = "$2a$10$n1ypfNx1hu7glF6dohr6Cul4JDPfADKFd/LB1PjXxsL.K2GRrgWmm"
-        permissions = ["*:*"]
-        [Users.ozone]
-        password = "$2a$10$ERGw6iJs3GjcR2ZU6efkqOOcvXSgy14cXssiL1lfQuBbvtLgBWhAO"
-        permissions = ["eth:*", "txpool:*"]
+      api: '["ETH", "ADMIN", "NET", "QBFT", "TXPOOL"]'
+    ws:
+      api: '["ETH", "ADMIN", "NET", "QBFT", "TXPOOL"]'
 
 storage:
   pvcSizeLimit: 1Gi

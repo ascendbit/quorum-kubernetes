@@ -15,12 +15,12 @@ cluster:
 
 node:
   besu:
-    envBesuOpts: ""
+    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0"
     resources:
       cpuLimit: "1001m"
       cpuRequest: "100m"
-      memLimit: "2G"
-      memRequest: "500Mi"
+      memLimit: "4G"
+      memRequest: "4G"
     metrics:
       serviceMonitorEnabled: false
     customLabels:
