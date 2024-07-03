@@ -15,17 +15,18 @@ cluster:
 
 node:
   besu:
-    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0"
+    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0 -XX:InitialHeapSize=256M -XX:ConcGCThreads=2 -XX:InitiatingHeapOccupancyPercent=30 -XX:G1HeapRegionSize=16M -XX:NewSize=256M"
     resources:
-      cpuLimit: "1001m"
-      cpuRequest: "100m"
-      memLimit: "4G"
-      memRequest: "4G"
+      cpuLimit: "3500m"
+      cpuRequest: "3001m"
+      memLimit: "10G"
+      memRequest: "10G"
     metrics:
       serviceMonitorEnabled: false
     customLabels:
       nodeType: rpc
     rpc:
+      maxActiveConnections: 240
       api: '["ETH", "ADMIN", "NET", "QBFT", "TXPOOL"]'
     ws:
       api: '["ETH", "ADMIN", "NET", "QBFT", "TXPOOL"]'

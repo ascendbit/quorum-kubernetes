@@ -17,10 +17,10 @@ node:
   besu:
     envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0"
     resources:
-      cpuLimit: "1001m"
-      cpuRequest: "100m"
-      memLimit: "4G"
-      memRequest: "4G"
+      cpuLimit: "3500m"
+      cpuRequest: "3001m"
+      memLimit: "8G"
+      memRequest: "8G"
     metrics:
       serviceMonitorEnabled: false
     customLabels:

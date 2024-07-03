@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    konghq.com/plugins: httpbin-basic-auth
+    konghq.com/strip-path: "false"
+    meta.helm.sh/release-name: rpc-1
+    meta.helm.sh/release-namespace: besu
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: besu-node-rpc-1
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-1
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: besu-rpc-1.ascendbit.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc-1
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    konghq.com/plugins: httpbin-basic-auth
+    konghq.com/strip-path: "false"
+    meta.helm.sh/release-name: rpc-2
+    meta.helm.sh/release-namespace: besu
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: besu-node-rpc-2
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-2
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: besu-rpc-2.ascendbit.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc-2
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix

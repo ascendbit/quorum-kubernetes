@@ -15,12 +15,12 @@ cluster:
 
 node:
   besu:
-    envBesuOpts: " -XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0 -XX:InitialHeapSize=256M -XX:InitiatingHeapOccupancyPercent=30 -XX:G1HeapRegionSize=16M -XX:NewSize=256M"
+    envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0 -XX:InitialHeapSize=256M -XX:InitiatingHeapOccupancyPercent=30 -XX:G1HeapRegionSize=16M -XX:NewSize=256M"
     resources:
-      cpuLimit: "3500m"
-      cpuRequest: "3001m"
-      memLimit: "8G"
-      memRequest: "8G"
+      cpuLimit: "1.5"
+      cpuRequest: "1"
+      memLimit: "2G"
+      memRequest: "2G"
     customLabels:
       nodeType: archive
     metrics:
@@ -34,8 +34,8 @@ node:
       api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'
 
 storage:
-  pvcSizeLimit: 2Gi
+  pvcSizeLimit: 60Gi
 
 affinity:
   zone:
-  - ap-southeast-2a
+  - ap-southeast-2b
