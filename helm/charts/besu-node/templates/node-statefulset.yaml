@@ -293,11 +293,12 @@ spec:
               --tx-pool-min-gas-price=0 \
               --tx-pool=sequenced \
               --tx-pool-limit-by-account-percentage=1.0 \
+              --tx-pool-max-size=16384 \
               --data-storage-format=FOREST
         livenessProbe:
           httpGet:
-            path: /liveness
-            port: 8545
+            path: /metrics
+            port: 9545
           initialDelaySeconds: 180
           periodSeconds: 60
       affinity:

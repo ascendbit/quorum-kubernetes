@@ -19,8 +19,8 @@ node:
     resources:
       cpuLimit: "3500m"
       cpuRequest: "3001m"
-      memLimit: "8G"
-      memRequest: "8G"
+      memLimit: "10G"
+      memRequest: "10G"
     metrics:
       serviceMonitorEnabled: false
     sync:

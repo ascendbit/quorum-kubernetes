@@ -1,4 +1,4 @@
-{{- if (and (or (eq .Values.node.besu.customLabels.nodeType "rpc") (eq .Values.node.besu.customLabels.nodeType "archive")) (and (ne .Release.Name "rpc-2") (ne .Release.Name "archive-2"))) }}
+{{- if (and (or (eq .Values.node.besu.customLabels.nodeType "rpc") (eq .Values.node.besu.customLabels.nodeType "archive")) (and (ne .Release.Name "rpc-2") (ne .Release.Name "archive-2") (ne .Release.Name "archive-3"))) }}
 ---
 apiVersion: v1
 kind: Service

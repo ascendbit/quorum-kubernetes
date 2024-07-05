@@ -17,10 +17,10 @@ node:
   besu:
     envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0 -XX:InitialHeapSize=256M -XX:InitiatingHeapOccupancyPercent=30 -XX:G1HeapRegionSize=16M -XX:NewSize=256M"
     resources:
-      cpuLimit: "1.5"
-      cpuRequest: "1"
-      memLimit: "2G"
-      memRequest: "2G"
+      cpuLimit: "15"
+      cpuRequest: "12"
+      memLimit: "30G"
+      memRequest: "30G"
     customLabels:
       nodeType: archive
     metrics:
@@ -29,9 +29,9 @@ node:
       mode: FULL
     rpc:
       maxActiveConnections: 500
-      api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'
+      api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT", "TXPOOL"]'
     ws:
-      api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT"]'
+      api: '["DEBUG", "ETH", "ADMIN", "NET", "TRACE", "QBFT", "TXPOOL"]'
 
 storage:
   pvcSizeLimit: 60Gi

@@ -17,6 +17,16 @@ node:
       password: 'password'
     customLabels:
       nodeType: rpc
+    rpc:
+      authenticationEnabled: true
+      type: userpass
+      credentialsFile: |-
+        [Users.admin]
+        password = "$2a$10$n1ypfNx1hu7glF6dohr6Cul4JDPfADKFd/LB1PjXxsL.K2GRrgWmm"
+        permissions = ["*:*"]
+        [Users.ozone]
+        password = "$2a$10$ERGw6iJs3GjcR2ZU6efkqOOcvXSgy14cXssiL1lfQuBbvtLgBWhAO"
+        permissions = ["eth:*", "txpool:*"]
 
 storage:
   pvcSizeLimit: 1Gi
@@ -27,4 +37,4 @@ affinity:
 
 ingress:
   enabled: true
-  host: besu-rpc.abc-dev.network
+  host: besu-rpc.ascendbit.network

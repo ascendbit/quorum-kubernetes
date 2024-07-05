@@ -3,7 +3,7 @@ config:
     enabled: false
 frontend:
   image:
-    tag: "v1.25.2"
+    tag: "v1.31.1"
   replicaCount: 1
   resources:
     requests:
@@ -38,13 +38,13 @@ frontend:
     NEXT_PUBLIC_STATS_API_HOST: "https://stats-blockscout.ascendbit.network"
 blockscout:
   image:
-    tag: "6.2.2"
+    tag: "6.7.1"
   resources:
     requests:
       cpu: 50m
       memory: 250Mi
     limits:
-      cpu: 500m
+      cpu: 1
       memory: 1Gi
   ingress:
     enabled: true
@@ -63,9 +63,9 @@ blockscout:
     DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@blockscout-rds.in.ascendbit.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
-    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive.besu.svc.cluster.local:8546"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-3.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-3.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-3.besu.svc.cluster.local:8546"
     CHAIN_ID: "9988"
     NETWORK: "POA"
     SUBNETWORK: "POA Sokol"
@@ -77,9 +77,16 @@ blockscout:
     SHOW_PRICE_CHART: "true"
     SHOW_TXS_CHART: "true"
     TXS_STATS_ENABLED: "true"
-    POOL_SIZE: 10
-    POOL_SIZE_API: 10
+    POOL_SIZE: 30
+    POOL_SIZE_API: 30
     TXS_STATS_DAYS_TO_COMPILE_AT_INIT: 2
+    API_GRAPHQL_ENABLED: "false"
+    NEXT_PUBLIC_GAS_TRACKER_ENABLED: "false"
+    INDEXER_CATCHUP_BLOCKS_BATCH_SIZE: 10
+    INDEXER_CATCHUP_BLOCKS_CONCURRENCY: 8
+    INDEXER_INTERNAL_TRANSACTIONS_BATCH_SIZE: 10
+    INDEXER_INTERNAL_TRANSACTIONS_CONCURRENCY: 3
+
 stats:
   enabled: true
   image:

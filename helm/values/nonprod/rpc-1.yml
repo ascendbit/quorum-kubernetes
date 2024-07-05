@@ -1,3 +1,7 @@
+image:
+  besu:
+    tag: 24.6.0
+
 quorumFlags:
   privacy: false
   removeKeysOnDelete: false
@@ -13,12 +17,18 @@ node:
   besu:
     metrics:
       serviceMonitorEnabled: false
-    sync:
-      mode: FULL
+    customLabels:
+      nodeType: rpc
+    rpc:
+      maxActiveConnections: 240
 
 storage:
-  pvcSizeLimit: 2Gi
+  pvcSizeLimit: 1Gi
 
 affinity:
   zone:
-  - ap-southeast-2c
+  - ap-southeast-2a
+
+ingress:
+  enabled: true
+  host: besu-rpc.abc-dev.network

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    konghq.com/strip-path: "false"
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: besu-node-rpc-stg
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-stg
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: besu-rpc-stg.abc-dev.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc-stg
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix
