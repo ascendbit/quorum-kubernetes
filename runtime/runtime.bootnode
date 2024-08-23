@@ -1,0 +1,12 @@
+      containers:
+      - args:
+        - |
+          exec
+          /opt/besu/bin/besu \
+            --config-file=/etc/besu/config.toml \
+            --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name=besu-node-bootnode-1 \
+            --min-gas-price=0 \
+            --tx-pool-min-gas-price=0 \
+            --tx-pool=sequenced \
+            --tx-pool-limit-by-account-percentage=1.0 \
+            --data-storage-format=FOREST

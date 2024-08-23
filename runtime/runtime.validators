@@ -1,0 +1,16 @@
+      containers:
+      - args:
+        - |
+          exec
+          /opt/besu/bin/besu \
+            --config-file=/etc/besu/config.toml \
+            --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name=besu-node-validator-1 \
+            --min-gas-price=0 \
+            --tx-pool-min-gas-price=0 \
+            --tx-pool=sequenced \
+            --tx-pool-limit-by-account-percentage=1.0 \
+            --tx-pool-max-size=16384 \
+            --tx-pool-enable-save-restore=true \
+            --tx-pool-save-file=/data/besu/node_txpool.dump \
+            --cache-last-blocks=28 \
+            --data-storage-format=FOREST
