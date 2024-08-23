@@ -1,0 +1,22 @@
+besu@besu-node-rpc-2-0:~$ cat /config/static/static-nodes.json
+[
+  "enode://036fcb15526b0413ca07f794bfd018f7bc95ba9af0001254c0cb621c63c013d4640607a38bc2ef98aa77b6c5947a65c52f2369b145e58c0f1ff8a3398ece65fe@besu-node-validator-6-0.besu-node-validator-6.besu.svc.cluster.local:30303?discport=0",
+  "enode://0e32ba0283a6e7e6a49000ea7268ebaf8920f51d7a48730320a0f71f4e275bae518fd104da1de079097fdd58b191584ed76d516316926585ad0c242716477174@besu-node-validator-1-0.besu-node-validator-1.besu.svc.cluster.local:30303?discport=0",
+  "enode://33e579d8eba833c4231b2aea21d984b4ac38db200860910ecfed0ce600a6d462384995d9984a103897e5c1c168951dd9550f99bb3279124da8d6954184facabf@besu-node-validator-3-0.besu-node-validator-3.besu.svc.cluster.local:30303?discport=0",
+  "enode://47dd2d7d91537372621510bc72324415cb78bdb52bcd06b01c0cf2ec7d67c37eb0265be47db2c4d87343d940ea31272a21d495e13cecf83162971dc348291264@besu-node-bootnode-1-0.besu-node-bootnode-1.besu.svc.cluster.local:30303?discport=0",
+  "enode://59ff35a6c11c5f8b453b77cb6c8517239fa18bcee325ba273088964488c254fb084c2d1a6099784c7fb760cf8da281a2c00bb14a28333c7f5a842961405643fd@besu-node-validator-4-0.besu-node-validator-4.besu.svc.cluster.local:30303?discport=0",
+  "enode://5dcd97c7385b11ae8933754b2c817b5d2d9cd97a6de371e7574d8b6ac2ce6419768e1e85b8e941b5cbd99c9441ebcaa215abd114c24a431546a73f10089b6837@besu-node-bootnode-3-0.besu-node-bootnode-3.besu.svc.cluster.local:30303?discport=0",
+  "enode://66189eeea9203d2ff62fe0fe9aff0cd585d558594dccb942711d973875a65d6a49e614dc5b450af3cea081840f439a26a00bf17bb1e77ea58b7cf3c65199ccf1@besu-node-rpc-2-0.besu-node-rpc-2.besu.svc.cluster.local:30303?discport=0",
+  "enode://74e8b13e65ddc2d4b4a78a2e2d320a6c82e9c9730e56caf930677729f3eaf38b4b9a5c8f258bc333da2e1d1c7b20d1414a76eff7f42682f7d6d1579cfc1e574f@besu-node-archive-4-0.besu-node-archive-4.besu.svc.cluster.local:30303?discport=0",
+  "enode://7bbac50a4e2aedea1a5e0eb4b6a77a3fcf1a57105ad25b57e1565f8383808cbd98cb525e16da1df477618d4e9184fd9ff525f801c8e4159e22599d52c4d56af4@besu-node-validator-1-0.besu-node-validator-1.besu.svc.cluster.local:30303?discport=0",
+  "enode://7edc094f3c56238fd7275708bfd2c7bc02eda60b19f4bb91c91c9fb9cedd5d5498f03395ea776bae00917aef410dc8c81bb77764a3d28b3e713baf30603045d1@besu-node-rpc-1-0.besu-node-rpc-1.besu.svc.cluster.local:30303?discport=0",
+  "enode://8dd5eaf4bf0d6b6495a535744421c6ed18de4e99c4935c1ff6a0f921d79d3100c78fb1db6cb9390d9d9d7654d768d5bda3ca1fee0ddf3d16096008dddb401c2d@besu-node-archive-2-0.besu-node-archive-2.besu.svc.cluster.local:30303?discport=0",
+  "enode://9d19496f5dec538bba02f04c65e00a04105fb15329b9e2a1204b3077bb6c9ef011004a9b11185adb0068e425c424bbc2fab836636a16e6010737bc34de521eb2@besu-node-validator-4-0.besu-node-validator-4.besu.svc.cluster.local:30303?discport=0",
+  "enode://ac365084d70ee2d861906e2d761db4b3eb0197235dad218af5654721e2418a059e4ad3d1d3bc94fec611fc59c85f0bd7fc79c378b23dd66b2e567ba7a53719b5@besu-node-validator-5-0.besu-node-validator-5.besu.svc.cluster.local:30303?discport=0",
+  "enode://b365e5f30b6ff312bfc018bf1ce65cd54b23396b27a45c193e1f7d7e6b26a27a5838e03cc35b5d2e8405338d2e503e7b04b324b8d00420fc6d5c89a22a723297@besu-node-validator-3-0.besu-node-validator-3.besu.svc.cluster.local:30303?discport=0",
+  "enode://bd440cacedd15a5255c941ee3255a6d6eabdebd3f7f8f7df718f5f0d7da89744b6f005a17a07811aaaa4d13a8367518e474651936e2d9c5b767256c162604c7a@besu-node-validator-2-0.besu-node-validator-2.besu.svc.cluster.local:30303?discport=0",
+  "enode://ed57c47bd2d58bdc51f1f53dca62c684d0e9fc851b84a1d164b6066c68402376793f9e22a4d301999bf16d851e78912aa87d843b994e9e475d56894af8b64f8b@besu-node-validator-5-0.besu-node-validator-5.besu.svc.cluster.local:30303?discport=0",
+  "enode://ed94c4128fb5c369d18e4d3f0fa08a222065d92eecdc271f0b5531898cafa5c532ed0c8c39e8ea8125bc9ab2189b63f2a8162b4cab8009d7d14ff6b290e7305f@besu-node-archive-3-0.besu-node-archive-3.besu.svc.cluster.local:30303?discport=0",
+  "enode://ee44eccaa530ccfd89f338ee749e1ef8463bd712370fed45cc533727f1642ed1ce7aba22c2f22002762486dbb1006a7251c74fc0551ad9fb20c7ef42eb067484@besu-node-archive-1-0.besu-node-archive-1.besu.svc.cluster.local:30303?discport=0",
+  "enode://fee17cd1d9dc0143637dff87a74f2ed049ab956d1ffe6b008bdbbd083dc923cdd288d9646863507182744c723daaee294b94dfbc479f0b40c1104d04c75b2b01@besu-node-bootnode-2-0.besu-node-bootnode-2.besu.svc.cluster.local:30303?discport=0"
+]
