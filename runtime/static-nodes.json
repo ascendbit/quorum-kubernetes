@@ -1,4 +1,4 @@
-besu@besu-node-rpc-2-0:~$ cat /config/static/static-nodes.json
+# besu@besu-node-rpc-2-0:~$ cat /config/static/static-nodes.json
 [
   "enode://036fcb15526b0413ca07f794bfd018f7bc95ba9af0001254c0cb621c63c013d4640607a38bc2ef98aa77b6c5947a65c52f2369b145e58c0f1ff8a3398ece65fe@besu-node-validator-6-0.besu-node-validator-6.besu.svc.cluster.local:30303?discport=0",
   "enode://0e32ba0283a6e7e6a49000ea7268ebaf8920f51d7a48730320a0f71f4e275bae518fd104da1de079097fdd58b191584ed76d516316926585ad0c242716477174@besu-node-validator-1-0.besu-node-validator-1.besu.svc.cluster.local:30303?discport=0",
