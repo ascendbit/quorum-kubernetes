@@ -37,7 +37,7 @@ spec:
     metadata:
       name: data
       annotations:
-        everest.io/disk-volume-type: SAS
+        everest.io/disk-volume-type: {{ .Values.storage.storageType }}
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: {{ .Values.storage.storageClassName }}

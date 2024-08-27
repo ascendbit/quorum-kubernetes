@@ -2,10 +2,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    konghq.com/strip-path: "false"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    konghq.com/https-redirect-status-code: "301"
     konghq.com/plugins: httpbin-basic-auth
+    konghq.com/protocols: https
+    konghq.com/strip-path: "false"
   labels:
     app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: besu-node-rpc-internal
     app.kubernetes.io/namespace: besu
   name: besu-node-rpc-internal
@@ -13,7 +17,7 @@ metadata:
 spec:
   ingressClassName: kong
   rules:
-  - host: lmn.in.ascendbit.network
+  - host: rpc-in.ascendbit.network
     http:
       paths:
       - backend:
@@ -23,3 +27,109 @@ spec:
               number: 8545
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - rpc-in.ascendbit.network
+    secretName: besu-rpc-cert-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    konghq.com/https-redirect-status-code: "301"
+    konghq.com/plugins: httpbin-basic-auth
+    konghq.com/protocols: https
+    konghq.com/strip-path: "false"
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: besu-node-rpc-1-internal
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-1-internal
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: rpc-1-in.ascendbit.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc-1
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - rpc-1-in.ascendbit.network
+    secretName: besu-rpc-1-cert-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    konghq.com/https-redirect-status-code: "301"
+    konghq.com/plugins: httpbin-basic-auth
+    konghq.com/protocols: https
+    konghq.com/strip-path: "false"
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: besu-node-rpc-2-internal
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-2-internal
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: rpc-2-in.ascendbit.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc-2
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - rpc-2-in.ascendbit.network
+    secretName: besu-rpc-2-cert-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    konghq.com/https-redirect-status-code: "301"
+    konghq.com/plugins: httpbin-basic-auth
+    konghq.com/protocols: https
+    konghq.com/strip-path: "false"
+  labels:
+    app.kubernetes.io/component: ingress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: besu-node-rpc-3-internal
+    app.kubernetes.io/namespace: besu
+  name: besu-node-rpc-3-internal
+  namespace: besu
+spec:
+  ingressClassName: kong
+  rules:
+  - host: rpc-3-in.ascendbit.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: besu-node-rpc-3
+            port:
+              number: 8545
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - rpc-3-in.ascendbit.network
+    secretName: besu-rpc-3-cert-tls

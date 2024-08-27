@@ -31,8 +31,9 @@ node:
       api: '["ETH", "ADMIN", "NET", "QBFT"]'
 
 storage:
+  storageType: "SSD"
   pvcSizeLimit: 1Gi
 
 affinity:
   zone:
-  - ap-southeast-2a
+  - ap-southeast-2b

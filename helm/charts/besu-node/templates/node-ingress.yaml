@@ -1,4 +1,4 @@
-{{- if (and (eq .Values.node.besu.customLabels.nodeType "rpc") (ne .Release.Name "rpc-2") (.Values.ingress.enabled)) }}
+{{- if (and (eq .Values.node.besu.customLabels.nodeType "rpc") (eq .Release.Name "rpc-1") (.Values.ingress.enabled)) }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
