@@ -3,7 +3,7 @@ config:
     enabled: false
 frontend:
   image:
-    tag: "v1.31.1"
+    tag: "v1.34.1"
   replicaCount: 1
   resources:
     requests:
@@ -38,14 +38,14 @@ frontend:
     NEXT_PUBLIC_STATS_API_HOST: "https://stats-blockscout.ascendbit.network"
 blockscout:
   image:
-    tag: "6.7.1"
+    tag: "6.8.1"
   resources:
     requests:
-      cpu: 50m
-      memory: 250Mi
-    limits:
       cpu: 1
-      memory: 1Gi
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 3Gi
   ingress:
     enabled: true
     className: "kong"
@@ -63,9 +63,12 @@ blockscout:
     DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@blockscout-rds.in.ascendbit.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
-    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-3.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-3.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-3.besu.svc.cluster.local:8546"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-4.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-4.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-4.besu.svc.cluster.local:8546"
+    ETHEREUM_JSONRPC_FALLBACK_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_FALLBACK_TRACE_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_FALLBACK_WS_URL: "ws://besu-node-archive-1.besu.svc.cluster.local:8545"
     CHAIN_ID: "9988"
     NETWORK: "POA"
     SUBNETWORK: "POA Sokol"
@@ -81,16 +84,32 @@ blockscout:
     POOL_SIZE_API: 30
     TXS_STATS_DAYS_TO_COMPILE_AT_INIT: 2
     API_GRAPHQL_ENABLED: "false"
-    NEXT_PUBLIC_GAS_TRACKER_ENABLED: "false"
-    INDEXER_CATCHUP_BLOCKS_BATCH_SIZE: 10
-    INDEXER_CATCHUP_BLOCKS_CONCURRENCY: 8
-    INDEXER_INTERNAL_TRANSACTIONS_BATCH_SIZE: 10
-    INDEXER_INTERNAL_TRANSACTIONS_CONCURRENCY: 3
-
+    INDEXER_CATCHUP_BLOCKS_BATCH_SIZE: 1
+    INDEXER_CATCHUP_BLOCKS_CONCURRENCY: 1
+    INDEXER_INTERNAL_TRANSACTIONS_BATCH_SIZE: 1
+    INDEXER_INTERNAL_TRANSACTIONS_CONCURRENCY: 1
+    INDEXER_EMPTY_BLOCKS_SANITIZER_BATCH_SIZE: 10
+    INDEXER_TOKEN_BALANCES_BATCH_SIZE: 10
+    INDEXER_COIN_BALANCES_BATCH_SIZE: 1
+    INDEXER_TOKEN_INSTANCE_LEGACY_SANITIZE_BATCH_SIZE: 1
+    INDEXER_TOKEN_INSTANCE_ERC_1155_SANITIZE_BATCH_SIZE: 1
+    INDEXER_TOKEN_INSTANCE_ERC_721_SANITIZE_BATCH_SIZE: 1
+    INDEXER_BLOCK_REWARD_CONCURRENCY: 1
+    INDEXER_RECEIPTS_CONCURRENCY: 1
+    INDEXER_COIN_BALANCES_CONCURRENCY: 1
+    INDEXER_TOKEN_CONCURRENCY: 1
+    INDEXER_TOKEN_BALANCES_CONCURRENCY: 1
+    INDEXER_TOKEN_INSTANCE_RETRY_CONCURRENCY: 1
+    INDEXER_TOKEN_INSTANCE_REALTIME_CONCURRENCY: 1
+    INDEXER_TOKEN_INSTANCE_SANITIZE_CONCURRENCY: 1
+    INDEXER_TOKEN_INSTANCE_ERC_1155_SANITIZE_CONCURRENCY: 1
+    INDEXER_FETCHER_INIT_QUERY_LIMIT: 1
+    MISSING_BALANCE_OF_TOKENS_WINDOW_SIZE: 1
+    SANITIZE_INCORRECT_WETH_BATCH_SIZE: 1
 stats:
   enabled: true
   image:
-    tag: "v1.5.1"
+    tag: "v2.0.0"
   resources:
     requests:
       cpu: 10m

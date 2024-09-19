@@ -1,6 +1,6 @@
 image:
   besu:
-    tag: 24.6.0
+    tag: 24.3.3-graalvm
 
 quorumFlags:
   privacy: false
@@ -17,12 +17,12 @@ node:
   besu:
     envBesuOpts: "-XX:MaxRAMPercentage=60.0 -XX:MinRAMPercentage=60.0 -XX:InitialRAMPercentage=60.0 -XX:InitialHeapSize=256M -XX:InitiatingHeapOccupancyPercent=30 -XX:G1HeapRegionSize=16M -XX:NewSize=256M"
     resources:
-      cpuLimit: "3500m"
-      cpuRequest: "3001m"
-      memLimit: "8G"
-      memRequest: "8G"
+      cpuLimit: "1"
+      cpuRequest: "500m"
+      memLimit: "2G"
+      memRequest: "2G"
     customLabels:
-      nodeType: archive-blockscout
+      nodeType: archive-extra
     metrics:
       serviceMonitorEnabled: false
     sync:
