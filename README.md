@@ -6,7 +6,7 @@ The following repo has example reference implementations of private networks usi
 
 You will need the following tools to proceed:
 
-- [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/) This is the local equivalent of a K8S cluster (refer to the [playground](./playground) for manifests to deploy)
+- [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) This is the local equivalent of a K8S cluster (refer to the [playground](./playground) for manifests to deploy)
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Helm](https://helm.sh/docs/)
 - [Helm Diff plugin](https://github.com/databus23/helm-diff)
@@ -98,9 +98,9 @@ You need to ensure that the genesis file is accessible to **all** nodes joining 
 Hyperledger Besu supports [NAT mechanisms](https://besu.hyperledger.org/en/stable/Reference/CLI/CLI-Syntax/#nat-method) and the default is set to automatically handle NAT environments. If you experience issues with NAT and logs have messages that have the NATService throwing exceptions connecting to external IPs, please add this option in your Besu deployments `--nat-method = NONE`
 
 #### Data Volumes:
-We use seperate data volumes to store the blockchain data, over the default of the host nodes. This is similar to using seperate volumes to store data when using docker containers natively or via docker-compose. This is done for a couple of reasons; firstly, containers are mortal and we don't want to store data on them, secondly, host nodes can fail and we would like the chain data to persist.  
+We use separate data volumes to store the blockchain data, over the default of the host nodes. This is similar to using separate volumes to store data when using docker containers natively or via docker-compose. This is done for a couple of reasons; firstly, containers are mortal and we don't want to store data on them, secondly, host nodes can fail and we would like the chain data to persist.  
 
-Please ensure that you provide enough capacity for data storage for all nodes that are going to be on the cluster. Select the appropriate [type](https://kubernetes.io/docs/concepts/storage/volumes/) of persitent volume based on your cloud provider. In the templates, the size of the claims has been set small. If you have a differnt storage account than the one in the charts, please set that up in the storageClass. We recommend you grow the volume claim as required (this also lowers cost)
+Please ensure that you provide enough capacity for data storage for all nodes that are going to be on the cluster. Select the appropriate [type](https://kubernetes.io/docs/concepts/storage/volumes/) of persistent volume based on your cloud provider. In the templates, the size of the claims has been set small. If you have a different storage account than the one in the charts, please set that up in the storageClass. We recommend you grow the volume claim as required (this also lowers cost)
 
 #### Nodes:
 Consider the use of statefulsets instead of deployments for client nodes. The term 'client node' refers to bootnode, validator and member/rpc nodes.
@@ -168,4 +168,3 @@ Ensure that if you are using a cloud provider you have enough spread across AZ's
 When deploying a private network, eg: IBFT you need to ensure that the bootnodes are accessible to all nodes on the network. Although the minimum number needed is 1, we recommend you use more than 1 spread across AZ's. In addition we also recommend you spread validators across AZ's and have a sufficient number available in the event of an AZ going down.
 
 You need to ensure that the genesis file is accessible to all nodes joining the network.
-

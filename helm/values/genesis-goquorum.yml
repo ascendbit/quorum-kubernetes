@@ -1,12 +1,11 @@
 ---
-
 quorumFlags:
   removeGenesisOnDelete: true
 
 cluster:
   provider: local  # choose from: local | aws | azure
-  cloudNativeServices: false # set to true to use Cloud Native Services (SecretsManager and IAM for AWS; KeyVault & Managed Identities for Azure)
-
+  cloudNativeServices: false 
+  
 aws:
   # the aws cli commands uses the name 'quorum-sa' so only change this if you altered the name
   serviceAccountName: quorum-sa
@@ -30,21 +29,17 @@ rawGenesisConfig:
     config:
       chainId: 1337
       algorithm:
-        consensus: qbft
+        consensus: qbft # choose from: ibft | qbft | raft | clique
         blockperiodseconds: 10
+        emptyBlockPeriod: 60
         epochlength: 30000
         requesttimeoutseconds: 20
-    gasLimit: '0xf7b760' 
+    gasLimit: '0x47b760'
     difficulty: '0x1'
     coinbase: '0x0000000000000000000000000000000000000000'
+    includeQuickStartAccounts: false # set to true if you would like to use the quorum-dev-quickstart test accounts. This setting will be forced false if cloudNativeServices is set to true which is assuming a prod environment
   blockchain:
     nodes:
       generate: true
       count: 4
     accountPassword: 'password'
-
-
-image:
-  repository: consensys/quorum-k8s-hooks
-  tag: qgt-0.2.18
-  pullPolicy: IfNotPresent
