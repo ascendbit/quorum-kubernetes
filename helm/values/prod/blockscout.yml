@@ -1,9 +1,11 @@
 config:
   prometheus:
     enabled: false
+    ingressWhitelist:
+      enabled: false
 frontend:
   image:
-    tag: "v1.34.1"
+    tag: "v1.37.2"
   replicaCount: 1
   resources:
     requests:
@@ -35,10 +37,9 @@ frontend:
     NEXT_PUBLIC_NETWORK_ID: 9988
     NEXT_PUBLIC_NETWORK_NAME: "ABC BAAS"
     NEXT_PUBLIC_NETWORK_VERIFICATION_TYPE: "validation"
-    NEXT_PUBLIC_STATS_API_HOST: "https://stats-blockscout.ascendbit.network"
 blockscout:
   image:
-    tag: "6.8.1"
+    tag: "6.10.0"
   resources:
     requests:
       cpu: 1
@@ -60,54 +61,35 @@ blockscout:
       enabled: true
       secretName: api-blockscout-cert-tls
   env:
-    DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@blockscout-rds.in.ascendbit.network:5432/blockscout"
     ETHEREUM_JSONRPC_VARIANT: "besu"
     ETHEREUM_JSONRPC_HTTP_INSECURE: "true"
-    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-4.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-4.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-4.besu.svc.cluster.local:8546"
-    ETHEREUM_JSONRPC_FALLBACK_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_FALLBACK_TRACE_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
-    ETHEREUM_JSONRPC_FALLBACK_WS_URL: "ws://besu-node-archive-1.besu.svc.cluster.local:8545"
+    ETHEREUM_JSONRPC_HTTP_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
+    DATABASE_URL: "postgresql://blockscout:nyruNA3LZ4DIHhiw@10.202.72.11:5432/blockscout"
+    ETHEREUM_JSONRPC_TRACE_URL: "http://besu-node-archive-1.besu.svc.cluster.local:8545"
     CHAIN_ID: "9988"
     NETWORK: "POA"
     SUBNETWORK: "POA Sokol"
-    ECTO_USE_SSL: "false"
-    DISABLE_EXCHANGE_RATES: "true"
-    SECRET_KEY_BASE: "uFwkcFHfs9aLjHljGHKo726xieAuMHsH4d5jtqWnEBMgFSGCNA/L0BFoh85YASQt"
+    ETHEREUM_JSONRPC_WS_URL: "ws://besu-node-archive-1.besu.svc.cluster.local:8546"
     BLOCKSCOUT_HOST: "blockscout.ascendbit.network"
     BLOCKSCOUT_PROTOCOL: "http"
-    SHOW_PRICE_CHART: "true"
-    SHOW_TXS_CHART: "true"
-    TXS_STATS_ENABLED: "true"
-    POOL_SIZE: 30
-    POOL_SIZE_API: 30
-    TXS_STATS_DAYS_TO_COMPILE_AT_INIT: 2
+    SECRET_KEY_BASE: "uFwkcFHfs9aLjHljGHKo726xieAuMHsH4d5jtqWnEBMgFSGCNA/L0BFoh85YASQt"
+    DISABLE_EXCHANGE_RATES: "true"
+    POOL_SIZE_API: 20
+    POOL_SIZE: 20
+    ECTO_USE_SSL: "false"
+    BLOCK_RANGES: "5715219..latest"
+    FIRST_BLOCK: 5715219
+    TRACE_FIRST_BLOCK: 5715219
     API_GRAPHQL_ENABLED: "false"
     INDEXER_CATCHUP_BLOCKS_BATCH_SIZE: 1
     INDEXER_CATCHUP_BLOCKS_CONCURRENCY: 1
-    INDEXER_INTERNAL_TRANSACTIONS_BATCH_SIZE: 1
-    INDEXER_INTERNAL_TRANSACTIONS_CONCURRENCY: 1
-    INDEXER_EMPTY_BLOCKS_SANITIZER_BATCH_SIZE: 10
-    INDEXER_TOKEN_BALANCES_BATCH_SIZE: 10
-    INDEXER_COIN_BALANCES_BATCH_SIZE: 1
-    INDEXER_TOKEN_INSTANCE_LEGACY_SANITIZE_BATCH_SIZE: 1
-    INDEXER_TOKEN_INSTANCE_ERC_1155_SANITIZE_BATCH_SIZE: 1
-    INDEXER_TOKEN_INSTANCE_ERC_721_SANITIZE_BATCH_SIZE: 1
-    INDEXER_BLOCK_REWARD_CONCURRENCY: 1
-    INDEXER_RECEIPTS_CONCURRENCY: 1
-    INDEXER_COIN_BALANCES_CONCURRENCY: 1
-    INDEXER_TOKEN_CONCURRENCY: 1
-    INDEXER_TOKEN_BALANCES_CONCURRENCY: 1
-    INDEXER_TOKEN_INSTANCE_RETRY_CONCURRENCY: 1
-    INDEXER_TOKEN_INSTANCE_REALTIME_CONCURRENCY: 1
-    INDEXER_TOKEN_INSTANCE_SANITIZE_CONCURRENCY: 1
-    INDEXER_TOKEN_INSTANCE_ERC_1155_SANITIZE_CONCURRENCY: 1
-    INDEXER_FETCHER_INIT_QUERY_LIMIT: 1
-    MISSING_BALANCE_OF_TOKENS_WINDOW_SIZE: 1
-    SANITIZE_INCORRECT_WETH_BATCH_SIZE: 1
+    INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER: "true"
+    TOKEN_ID_MIGRATION_FIRST_BLOCK: 5715219
+    SHOW_PRICE_CHART: "false"
+    SHOW_TXS_CHART: "false"
+    TXS_STATS_ENABLED: "false"
 stats:
-  enabled: true
+  enabled: false
   image:
     tag: "v2.0.0"
   resources:
